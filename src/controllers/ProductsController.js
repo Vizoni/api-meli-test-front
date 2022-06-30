@@ -35,19 +35,16 @@ module.exports = {
 						},
 					};
 				});
-				const returnedObject = JSON.stringify({
+				const returnedObject = {
 					categories: categoryList,
 					items: items,
-				});
-				response.writeHead(200, { "Content-Type": "application/json" });
-				response.end(returnedObject);
+				};
+				response.send(200, returnedObject);
 			});
 		});
 	},
 	getProductDetailsById(request, response) {
 		const { id } = request.params;
-		// bate no id primeiro
-		// dps bate no id/description
 		let productDetail = "";
 		https.get(`${apiURL}items/${id}`, (resp) => {
 			resp.on("data", (chunk) => {
@@ -57,64 +54,53 @@ module.exports = {
 			resp.on("end", () => {
 				const item = JSON.parse(productDetail);
 				if (item.status === 404) {
-					response.writeHead(404, { "Content-Type": "application/json" });
-					response.end(JSON.stringify({ error: item.message }));
-				} else {
-					const splitDecimalAmountPrice = item.price.toString().split(".");
-
-					let categoriesResponse = "";
-					let categoryList = [];
-					https.get(
-						`${apiURL}categories/${item.category_id}`,
-						(categoryResp) => {
-							categoryResp.on("data", (chunk) => {
-								categoriesResponse += chunk;
-							});
-							categoryResp.on("end", () => {
-								categoriesResponse = JSON.parse(categoriesResponse);
-								categoryList = []
-									.concat(categoriesResponse.path_from_root)
-									.map(({ name }) => name);
-
-								let descriptionResponse = "";
-								let description = "";
-								https.get(
-									`${apiURL}items/${id}/description`,
-									(descriptionResp) => {
-										descriptionResp.on("data", (chunk) => {
-											descriptionResponse += chunk;
-										});
-										descriptionResp.on("end", () => {
-											description =
-												JSON.parse(descriptionResponse).plain_text || "";
-											const returnedObject = JSON.stringify({
-												item: {
-													id: item.id,
-													title: item.title,
-													categories: categoryList,
-													price: {
-														currency: item.currency_id,
-														amount: Number(splitDecimalAmountPrice[0]),
-														decimals: Number(splitDecimalAmountPrice[1]),
-													},
-													picture: item.thumbnail,
-													condition: item.condition,
-													free_shipping: item.shipping.free_shipping,
-													sold_quantity: item.sold_quantity,
-													description: description,
-												},
-											});
-											response.writeHead(200, {
-												"Content-Type": "application/json",
-											});
-											response.end(returnedObject);
-										});
-									}
-								);
-							});
-						}
-					);
+					return response.send(404, { error: item.message });
 				}
+
+				const splitDecimalAmountPrice = item.price.toString().split(".");
+
+				let categoriesResponse = "";
+				let categoryList = [];
+				https.get(`${apiURL}categories/${item.category_id}`, (categoryResp) => {
+					categoryResp.on("data", (chunk) => {
+						categoriesResponse += chunk;
+					});
+					categoryResp.on("end", () => {
+						categoriesResponse = JSON.parse(categoriesResponse);
+						categoryList = []
+							.concat(categoriesResponse.path_from_root)
+							.map(({ name }) => name);
+
+						let descriptionResponse = "";
+						let description = "";
+						https.get(`${apiURL}items/${id}/description`, (descriptionResp) => {
+							descriptionResp.on("data", (chunk) => {
+								descriptionResponse += chunk;
+							});
+							descriptionResp.on("end", () => {
+								description = JSON.parse(descriptionResponse).plain_text || "";
+								const returnedObject = {
+									item: {
+										id: item.id,
+										title: item.title,
+										categories: categoryList,
+										price: {
+											currency: item.currency_id,
+											amount: Number(splitDecimalAmountPrice[0]),
+											decimals: Number(splitDecimalAmountPrice[1]),
+										},
+										picture: item.thumbnail,
+										condition: item.condition,
+										free_shipping: item.shipping.free_shipping,
+										sold_quantity: item.sold_quantity,
+										description: description,
+									},
+								};
+								response.send(200, returnedObject);
+							});
+						});
+					});
+				});
 			});
 		});
 	},
