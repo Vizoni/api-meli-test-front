@@ -14,13 +14,22 @@ const server = http.createServer((request, response) => {
 		`Request Method: ${request.method} | Endpoint: ${parsedUrl.pathname}`
 	);
 
+	let { pathname } = parsedUrl;
+	let id = null;
+	const splitEndpoint = pathname.split("/").filter(Boolean);
+
+	if (splitEndpoint.length > 1) {
+		pathname = `/${splitEndpoint[0]}/${splitEndpoint[1]}/:id`;
+		id = splitEndpoint[2];
+	}
+
 	const route = routes.find(
 		(routeObject) =>
-			routeObject.endpoint === parsedUrl.pathname &&
-			routeObject.method === request.method
+			routeObject.endpoint === pathname && routeObject.method === request.method
 	);
 
 	if (route) {
+		request.params = { id };
 		request.query = Object.fromEntries(parsedUrl.searchParams);
 		route.handler(request, response);
 	} else {

@@ -6,4 +6,9 @@ module.exports = [
 		method: "GET",
 		handler: ProductsController.getProductByText,
 	},
+	{
+		endpoint: "/api/items/:id",
+		method: "GET",
+		handler: ProductsController.getProductDetailsById,
+	},
 ];
