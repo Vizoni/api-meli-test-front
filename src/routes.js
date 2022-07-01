@@ -1,20 +1,12 @@
-const ProductsController = require("./controllers/ProductsController");
-const HealthController = require("./controllers/HealthController");
+const { Router } = require('express');
 
-module.exports = [
-	{
-		endpoint: "/api/health",
-		method: "GET",
-		handler: HealthController.getHealth,
-	},
-	{
-		endpoint: "/api/items",
-		method: "GET",
-		handler: ProductsController.getProductByText,
-	},
-	{
-		endpoint: "/api/items/:id",
-		method: "GET",
-		handler: ProductsController.getProductDetailsById,
-	},
-];
+const router = Router();
+
+const HealthController = require('./controllers/HealthController');
+const ProductController = require('./controllers/ProductController');
+
+router.get('/api/health', HealthController.getHealth);
+router.get('/api/items', ProductController.getProductByText);
+router.get('/api/items/:id', ProductController.getProductById);
+
+module.exports = router;

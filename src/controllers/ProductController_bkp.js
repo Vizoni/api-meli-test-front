@@ -43,7 +43,7 @@ module.exports = {
 			});
 		});
 	},
-	getProductDetailsById(request, response) {
+	getProductById(request, response) {
 		const { id } = request.params;
 		let productDetail = "";
 		https.get(`${apiURL}items/${id}`, (resp) => {
