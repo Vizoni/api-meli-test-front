@@ -5,7 +5,7 @@ const apiURL = process.env.MELI_API_URL
 const getProductByText = (reqParam, response) => {
 
     const queryParam = reqParam.query.q
-    request.get(`${apiURL}sites/MLB/search?q=${queryParam}&limit=2`, (errSearch, resSearch, bodySearch) => {
+    request.get(`${apiURL}sites/MLB/search?q=${queryParam}&limit=4`, (errSearch, resSearch, bodySearch) => {
         if (resSearch.statusCode !== 200) {
             return response.status(resSearch.statusCode).send(JSON.parse(bodySearch));
         }

@@ -1,6 +1,5 @@
 const getHealth = (reqParam, response) => {
     try {
-        // response.setHeader('Content-Type', 'application/json');
         return response.status(200).send({
             uptime: process.uptime(),
             message: "It's all fine.",
