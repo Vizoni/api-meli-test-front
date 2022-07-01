@@ -10,7 +10,6 @@ const getProductByText = (reqParam, response) => {
             return response.status(resSearch.statusCode).send(JSON.parse(bodySearch));
         }
         const products = JSON.parse(resSearch.body).results;
-        console.log("bod", JSON.parse(resSearch.body))
         if (products.length == 0) {
             const returnedObject = {
                 categories: [],
