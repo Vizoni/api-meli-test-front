@@ -6,11 +6,11 @@ const router = Router();
 const HealthController = require('./controllers/HealthController');
 const ProductController = require('./controllers/ProductController');
 
-// router.options('/api/health', cors())
 router.get('/api/health', HealthController.getHealth);
-// router.options('/api/items', cors())
 router.get('/api/items', ProductController.getProductByText);
-// router.options('/api/items/:id', cors())
 router.get('/api/items/:id', ProductController.getProductById);
+// router.get('/api/health', cors(), HealthController.getHealth);
+// router.get('/api/items', cors(),ProductController.getProductByText);
+// router.get('/api/items/:id', cors(),ProductController.getProductById);
 
 module.exports = router;
