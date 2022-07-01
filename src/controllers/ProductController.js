@@ -3,9 +3,14 @@ const request = require('request');
 const apiURL = process.env.MELI_API_URL
 
 const getProductByText = (reqParam, response) => {
+
     const queryParam = reqParam.query.q
-    request(`${apiURL}sites/MLB/search?q=${queryParam}&limit=2`, (errSearch, resSearch, bodySearch) => {
+    request.get(`${apiURL}sites/MLB/search?q=${queryParam}&limit=2`, (errSearch, resSearch, bodySearch) => {
+        if (resSearch.statusCode !== 200) {
+            return response.status(resSearch.statusCode).send(JSON.parse(bodySearch));
+        }
         const products = JSON.parse(resSearch.body).results;
+        console.log("bod", JSON.parse(resSearch.body))
         if (products.length == 0) {
             const returnedObject = {
                 categories: [],
@@ -47,17 +52,23 @@ const getProductByText = (reqParam, response) => {
 
 const getProductById = (reqParam, response) => {
     const { id } = reqParam.params;
-    request(`${apiURL}items/${id}`, (errProduct, resProduct, bodyProduct) => {
-        const item = JSON.parse(resProduct.body);
-        if (item.status === 404) {
-            return response.status(404).send({ error: item.message });
+    request.get(`${apiURL}items/${id}`, (errProduct, resProduct, bodyProduct) => {
+        if (resProduct.statusCode !== 200) {
+            return response.status(resProduct.statusCode).send(JSON.parse(bodyProduct));
         }
+        const item = JSON.parse(resProduct.body);
         const splitDecimalAmountPrice = item.price.toString().split(".");
-        request(`${apiURL}categories/${item.category_id}`, (errCategories, resCategories, bodyCategories) => {
+        request.get(`${apiURL}categories/${item.category_id}`, (errCategories, resCategories, bodyCategories) => {
+            if (resCategories.statusCode !== 200) {
+                return response.status(resCategories.statusCode).send(JSON.parse(bodyCategories));
+            }
             const categoriesResponse = JSON.parse(resCategories.body);
             const categoryList = [].concat(categoriesResponse.path_from_root).map(({ name }) => name);
             
-            request(`${apiURL}items/${id}/description`, (errDescription, resDescription, bodyDescription) => {
+            request.get(`${apiURL}items/${id}/description`, (errDescription, resDescription, bodyDescription) => {
+                if (resDescription.statusCode !== 200) {
+                    return response.status(resDescription.statusCode).send(JSON.parse(bodyDescription));
+                }
                 const description = JSON.parse(resDescription.body).plain_text || "";
                 const returnedObject = {
                     item: {
