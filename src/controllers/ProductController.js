@@ -30,7 +30,7 @@ const getProductByText = (reqParam, response) => {
             return {
                 id: prod.id,
                 title: prod.title,
-                picture: prod.thumbnail,
+                thumbnail: prod.thumbnail,
                 condition: prod.condition,
                 free_shipping: prod.shipping.free_shipping,
                 city: prod.address.city_name,
@@ -70,6 +70,8 @@ const getProductById = (reqParam, response) => {
                     return response.status(resDescription.statusCode).send(JSON.parse(bodyDescription));
                 }
                 const description = JSON.parse(resDescription.body).plain_text || "";
+                const pictureList = item.pictures.slice(0,2).map(picture => picture.url)
+
                 const returnedObject = {
                     item: {
                         id: item.id,
@@ -81,7 +83,7 @@ const getProductById = (reqParam, response) => {
                             decimals: Number(splitDecimalAmountPrice[1]),
                         },
                         thumbnail: item.thumbnail,
-                        pictures: item.pictures,
+                        pictures: pictureList,
                         condition: item.condition,
                         free_shipping: item.shipping.free_shipping,
                         sold_quantity: item.sold_quantity,
