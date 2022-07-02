@@ -1,0 +1,247 @@
+{
+	"info": {
+		"_postman_id": "88b2c36e-d1cc-44c4-ae69-e0db14f50240",
+		"name": "MELI Test Front",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "574539"
+	},
+	"item": [
+		{
+			"name": "[vizoni] get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api-meli-test-front-vizoni.herokuapp.com/api/items/MLA1119561622",
+					"protocol": "https",
+					"host": [
+						"api-meli-test-front-vizoni",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"items",
+						"MLA1119561622"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[vizoni] health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api-meli-test-front-vizoni.herokuapp.com/api/health",
+					"protocol": "https",
+					"host": [
+						"api-meli-test-front-vizoni",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[vizoni] get products by text",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api-meli-test-front-vizoni.herokuapp.com/api/items?q=iphone",
+					"protocol": "https",
+					"host": [
+						"api-meli-test-front-vizoni",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"items"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "iphone"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[localhost] health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[localhost] get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/items/MLA1120001051",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"items",
+						"MLA1120001051"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[localhost] get products by text",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/items?q=silla&limit=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"items"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "silla"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[meli] get products by text",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.mercadolibre.com/sites/MLB/search?q=iphone&limit=2",
+					"protocol": "https",
+					"host": [
+						"api",
+						"mercadolibre",
+						"com"
+					],
+					"path": [
+						"sites",
+						"MLB",
+						"search"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "iphone"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[meli] get product",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.mercadolibre.com/items/MLA1119561622",
+					"protocol": "https",
+					"host": [
+						"api",
+						"mercadolibre",
+						"com"
+					],
+					"path": [
+						"items",
+						"MLA1119561622"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[meli] get product description",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.mercadolibre.com/items/MLA1119561622/description",
+					"protocol": "https",
+					"host": [
+						"api",
+						"mercadolibre",
+						"com"
+					],
+					"path": [
+						"items",
+						"MLA1119561622",
+						"description"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[meli] get product categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.mercadolibre.com/categories/MLA1055",
+					"protocol": "https",
+					"host": [
+						"api",
+						"mercadolibre",
+						"com"
+					],
+					"path": [
+						"categories",
+						"MLA1055"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
