@@ -17,10 +17,10 @@ const getProductByText = (reqParam, response) => {
             };
             return response.status(200).send(returnedObject);
         }
-        const categoriesObj = JSON.parse(resSearch.body).filters.find(
+        const categoriesObj = JSON.parse(resSearch.body)?.filters.find(
             (item) => item.id == "category"
         );
-        const categories = categoriesObj.values[0].path_from_root;
+        const categories = categoriesObj?.values[0].path_from_root || [];
         const categoryList = [].concat(categories).map(({ name }) => name);
 
         const items = [].concat(products).map((prod) => {
