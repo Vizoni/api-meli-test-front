@@ -5,7 +5,7 @@ const apiURL = process.env.MELI_API_URL
 const getProductByText = (reqParam, response) => {
 
     const queryParam = reqParam.query.q
-    request.get(`${apiURL}sites/MLB/search?q=${queryParam}&limit=4`, (errSearch, resSearch, bodySearch) => {
+    request.get(`${apiURL}sites/MLA/search?q=${queryParam}&limit=4`, (errSearch, resSearch, bodySearch) => {
         if (resSearch.statusCode !== 200) {
             return response.status(resSearch.statusCode).send(JSON.parse(bodySearch));
         }
@@ -33,6 +33,7 @@ const getProductByText = (reqParam, response) => {
                 picture: prod.thumbnail,
                 condition: prod.condition,
                 free_shipping: prod.shipping.free_shipping,
+                city: prod.address.city_name,
                 price: {
                     currency: prod.prices.prices[0].currency_id,
                     amount: Number(splitDecimalAmountPrice[0]),
@@ -79,10 +80,12 @@ const getProductById = (reqParam, response) => {
                             amount: Number(splitDecimalAmountPrice[0]),
                             decimals: Number(splitDecimalAmountPrice[1]),
                         },
-                        picture: item.thumbnail,
+                        thumbnail: item.thumbnail,
+                        pictures: item.pictures,
                         condition: item.condition,
                         free_shipping: item.shipping.free_shipping,
                         sold_quantity: item.sold_quantity,
+                        city: item.seller_address.city.name,
                         description: description,
                     },
                 };
