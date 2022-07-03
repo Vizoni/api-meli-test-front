@@ -4,8 +4,9 @@ const apiURL = process.env.MELI_API_URL
 
 const getProductByText = (reqParam, response) => {
 
-    const queryParam = reqParam.query.q
-    request.get(`${apiURL}sites/MLA/search?q=${queryParam}&limit=4`, (errSearch, resSearch, bodySearch) => {
+    const { q } = reqParam.query;
+    const { offset } = reqParam.query;
+    request.get(`${apiURL}sites/MLA/search?q=${q}&offset=${offset}&limit=4`, (errSearch, resSearch, bodySearch) => {
         if (resSearch.statusCode !== 200) {
             return response.status(resSearch.statusCode).send(JSON.parse(bodySearch));
         }
@@ -15,8 +16,9 @@ const getProductByText = (reqParam, response) => {
                 categories: [],
                 items: [],
             };
-            return response.status(200).send(returnedObject);
+            return response.status(404).send(returnedObject);
         }
+        const paging = JSON.parse(resSearch.body).paging
         const categoriesObj = JSON.parse(resSearch.body)?.filters.find(
             (item) => item.id == "category"
         );
@@ -42,6 +44,7 @@ const getProductByText = (reqParam, response) => {
             };
         });
         const returnedObject = {
+            pagination: paging,
             categories: categoryList,
             items: items,
         };
