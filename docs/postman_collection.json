@@ -55,7 +55,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api-meli-test-front-vizoni.herokuapp.com/api/items?q=iphone",
+					"raw": "https://api-meli-test-front-vizoni.herokuapp.com/api/items?q=iphone&offset=4",
 					"protocol": "https",
 					"host": [
 						"api-meli-test-front-vizoni",
@@ -70,6 +70,10 @@
 						{
 							"key": "q",
 							"value": "iphone"
+						},
+						{
+							"key": "offset",
+							"value": "4"
 						}
 					]
 				}
@@ -123,7 +127,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/api/items?q=silla&limit=1",
+					"raw": "http://localhost:8000/api/items?q=silla&offset=9",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -139,8 +143,8 @@
 							"value": "silla"
 						},
 						{
-							"key": "limit",
-							"value": "1"
+							"key": "offset",
+							"value": "9"
 						}
 					]
 				}
@@ -153,7 +157,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://api.mercadolibre.com/sites/MLB/search?q=iphone&limit=2",
+					"raw": "https://api.mercadolibre.com/sites/MLB/search?q=iphone&&offset=5&limit=2",
 					"protocol": "https",
 					"host": [
 						"api",
@@ -169,6 +173,14 @@
 						{
 							"key": "q",
 							"value": "iphone"
+						},
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "offset",
+							"value": "5"
 						},
 						{
 							"key": "limit",
