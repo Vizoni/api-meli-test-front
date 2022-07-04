@@ -83,6 +83,22 @@ Make sure you have npm installed.
 ```
 
 
+<!-- ROADMAP -->
+## Roadmap
+
+- [x] [Upgrade pure node to express](https://github.com/Vizoni/api-meli-test-front/tree/express)
+- [x] Endpoints
+    - [x] Health Check
+    - [x] Get product by id
+        - [x] Consult categories path
+        - [x] Consult product description
+    - [x] Get products by text
+- [x] Cors
+- [ ] [Upgrade request lib to axios (WIP)](https://github.com/Vizoni/api-meli-test-front/tree/axios)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
 <!-- LICENSE -->
 ## License
 
