@@ -15,7 +15,7 @@ const getProductByText = (reqParam, response) => {
             const returnedObject = {
                 categories: [],
                 items: [],
-                pagination: [],
+                pagination: {},
             };
             return response.status(404).send(returnedObject);
         }
